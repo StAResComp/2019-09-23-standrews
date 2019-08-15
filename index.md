@@ -559,7 +559,7 @@ please preview your site before committing, and make sure to run
     well.  Installing all of its research packages individually can be
     a bit difficult, so we recommend
     <a href="https://www.anaconda.com/distribution/">Anaconda</a>,
-    an all-in-one installer.
+    an all-in-one installer - <strong>even if you already have another Python installed</strong>.
   </p>
 
   <p>
