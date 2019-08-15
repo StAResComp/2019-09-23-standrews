@@ -4,8 +4,8 @@ carpentry: "FIXME"    # what kind of Carpentry (must be either "lc" or "dc" or "
                       # Be sure to update the Carpentry type in _config.yml as well.  
 venue: "FIXME"        # brief name of host site without address (e.g., "Euphoric State University")
 address: "FIXME"      # full street address of workshop (e.g., "Room A, 123 Forth Street, Blimingen, Euphoria")
-country: "FIXME"      # lowercase two-letter ISO country code such as "fr" (see https://en.wikipedia.org/wiki/ISO_3166-1)
-language: "FIXME"     # lowercase two-letter ISO language code such as "fr" (see https://en.wikipedia.org/wiki/ISO_639-1)
+country: "FIXME"      # lowercase two-letter ISO country code such as "fr" (see https://en.wikipedia.org/wiki/ISO_3166-1#Current_codes)
+language: "FIXME"     # lowercase two-letter ISO language code such as "fr" (see https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes)
 latlng: "FIXME"       # decimal latitude and longitude of workshop venue (e.g., "41.7901128,-87.6007318" - use https://www.latlong.net/)
 humandate: "FIXME"    # human-readable dates for the workshop (e.g., "Feb 17-18, 2020")
 humantime: "FIXME"    # human-readable times for the workshop (e.g., "9:00 am - 4:30 pm")
@@ -29,6 +29,28 @@ double quotation marks around the value, unless specified otherwise.
 And run 'make workshop-check' *before* committing to make sure that changes are good.
 {% endcomment %}
 
+
+
+{% comment %}
+For a workshop please delete the following block
+{% endcomment %}
+<div class="alert alert-danger">
+This is the workshop template. Delete these lines and use it to customize your
+own website. If you are running a self-organized workshop or have not put in a
+workshop request yet, please also fill in 
+<a href="{{site.amy_site}}/submit">this workshop request form</a> to let us know
+about your workshop and our administrator may contact you if we need any extra
+information.
+</div>
+
+{% if page.carpentry != site.carpentry %}
+<div class="alert alert-warning">
+You specified <code>carpentry: {{page.carpentry}}</code> in <code>index.md</code> and
+<code>carpentry: {{site.carpentry}}</code> in <code>_config.yml</code>. Make sure you edit both files. After editing <code>_config.yml</code>, you need to run <code>make serve</code> again to 
+see the changes take effect locally.
+</div>
+{% endif %}
+
 {% comment %}
 EVENTBRITE
 
@@ -47,10 +69,6 @@ displayed if the 'eventbrite' field in the header is not set.
 </iframe>
 {% endif %}
 
-<h4>This is the workshop template. Delete these lines and use it to customize your own website.
-  If you are running a self-organized workshop or have not put in a workshop request yet, please also fill in 
-  <a href="{{site.amy_site}}/submit">this workshop request form</a> to let us know about your workshop
-  and our administrator may contact you if we need any extra information.</h4>
 
 <h2 id="general">General Information</h2>
 
@@ -121,18 +139,16 @@ Modify the block below if there are any special requirements.
 {% endcomment %}
 <p id="requirements">
   <strong>Requirements:</strong> Participants must bring a laptop with a
-  Mac, Linux, or Windows operating system (not a tablet, Chromebook, etc.) that they have administrative privileges
-  on. They should have a few specific software packages installed (listed
-  <a href="#setup">below</a>). They are also required to abide by
-  {% if page.carpentry == "swc" %}
-  Software Carpentry's
-  {% elsif page.carpentry == "dc" %}
-  Data Carpentry's
-  {% elsif page.carpentry == "lc" %}
-  Library Carpentry's
-  {% endif %}
-  <a href="{{site.swc_site}}/conduct.html">Code of Conduct</a>.
+  Mac, Linux, or Windows operating system (not a tablet, Chromebook, etc.) that they have administrative privileges on. They should have a few specific software packages installed (listed <a href="#setup">below</a>).
 </p>
+
+{% comment%}
+CODE OF CONDUCT
+{% endcomment %}
+<p id="code-of-conduct">
+<strong>Code of Conduct:</strong>  Everyone who participates in Carpentries activities is required to conform to the <a href="https://docs.carpentries.org/topic_folders/policies/code-of-conduct.html">Code of Conduct</a>. This document also outlines how to report an incident if needed.
+</p>
+
 
 {% comment %}
 ACCESSIBILITY
@@ -226,7 +242,7 @@ Collaborative Notes
 
 If you want to use an Etherpad, go to
 
-http://pad.software-carpentry.org/YYYY-MM-DD-site
+http://pad.carpentries.org/YYYY-MM-DD-site
 
 where 'YYYY-MM-DD-site' is the identifier for your workshop,
 e.g., '2015-06-10-esu'.
@@ -322,7 +338,7 @@ please preview your site before committing, and make sure to run
           <li>Download the Git for Windows <a href="https://git-for-windows.github.io/">installer</a>.</li>
           <li>Run the installer and follow the steps below:
             <ol>
-              {% comment %} Git 2.18.0 Setup {% endcomment %}
+              {% comment %} Git 2.22.0 Setup {% endcomment %}
               <li>
                 Click on "Next" four times (two times if you've previously
                 installed Git).  You don't need to change anything
@@ -330,17 +346,21 @@ please preview your site before committing, and make sure to run
               </li>
               <li>
                 <strong>
-                  Select “Use the nano editor by default” and click on “Next”.
+                  Select "Use the nano editor by default" and click on "Next".
                 </strong>
               </li>
               {% comment %} Adjusting your PATH environment {% endcomment %}
               <li>
-                Keep "Use Git from the Windows Command Prompt" selected and click on "Next".
+                Keep "Git from the command line and also from 3rd-party software" selected and click on "Next".
                 If you forgot to do this programs that you need for the workshop will not work properly.
                 If this happens rerun the installer and select the appropriate option.
               </li>
               {% comment %} Choosing the SSH executable {% endcomment %}
               <li>Click on "Next".</li>
+              {% comment %} Choosing HTTPS transport backend {% endcomment %}
+              <li>Select "Use the native Windows Secure Channel library", and click "Next".</li>
+              {% comment %} This should mean that people stuck behind corporate firewalls that do MITM attacks 
+                                 with their own root CA are still able to access remote git repos. {% endcomment %}
               {% comment %} Configuring the line ending conversions {% endcomment %}
               <li>
                 Keep "Checkout Windows-style, commit Unix-style line endings" selected and click on "Next".
@@ -351,8 +371,10 @@ please preview your site before committing, and make sure to run
                   Select "Use Windows' default console window" and click on "Next".
                 </strong>
               </li>
-              {% comment %} Configuring experimental performance tweaks {% endcomment %}
-              <li>Click on "Install".</li>
+              {% comment %} Configuring extra options {% endcomment %}
+              <li>Leave all three items selected, and click on "Next".</li>
+              {% comment %} Configuring experimental options {% endcomment %}
+              <li>Do not select the experimental option. Click "Install".</li>
               {% comment %} Installing {% endcomment %}
               {% comment %} Completing the Git Setup Wizard {% endcomment %}
               <li>Click on "Finish".</li>
@@ -373,7 +395,7 @@ please preview your site before committing, and make sure to run
         </ol>
         <p>This will provide you with both Git and Bash in the Git Bash program.</p>
       </article>
-      <article role="tabpanel" class="tab-pane" id="shell-macos">
+      <article role="tabpanel" class="tab-pane active" id="shell-macos">
         <p>
           The default shell in all versions of macOS is Bash, so no
           need to install anything.  You access Bash from the Terminal
@@ -385,7 +407,7 @@ please preview your site before committing, and make sure to run
           Terminal in your dock for this workshop.
         </p>
       </article>
-      <article role="tabpanel" class="tab-pane" id="shell-linux">
+      <article role="tabpanel" class="tab-pane active" id="shell-linux">
         <p>
           The default shell is usually Bash, but if your
           machine is set up differently you can run it by opening a
@@ -397,7 +419,7 @@ please preview your site before committing, and make sure to run
   </div>
 </div> {% comment %} End of 'shell' section. {% endcomment %}
 
-<div id="git"> {% comment %} Start of 'Git' section. GitHub browser compatability
+<div id="git"> {% comment %} Start of 'Git' section. GitHub browser compatibility
   is given at https://help.github.com/articles/supported-browsers/{% endcomment %}
   <h3>Git</h3>
   <p>
@@ -509,7 +531,7 @@ please preview your site before committing, and make sure to run
           <a href="https://www.sublimetext.com/">Sublime Text</a>.
         </p>
       </article>
-      <article role="tabpanel" class="tab-pane active" id="editor-macos">
+      <article role="tabpanel" class="tab-pane active" id="editor-linux">
         <p>
           nano is a basic editor and the default that instructors use in the workshop.
           It should be pre-installed.
@@ -693,23 +715,42 @@ please preview your site before committing, and make sure to run
       <li role="presentation" class="active"><a data-os="windows" href="#sql-windows" aria-controls="Windows" role="tab" data-toggle="tab">Windows</a></li>
       <li role="presentation"><a data-os="macos" href="#sql-macos" aria-controls="MacOS" role="tab" data-toggle="tab">MacOS</a></li>
       <li role="presentation"><a data-os="linux" href="#sql-linux" aria-controls="Linux" role="tab" data-toggle="tab">Linux</a></li>
+      {% if page.carpentry != 'dc' %}
+      <li role="presentation"><a data-os="Web" href="#sql-web" aria-controls="Linux" role="tab" data-toggle="tab">Web</a></li>
+      {% endif %}
     </ul>
-
+    {% if page.carpentry == 'dc' %}
     <div class="tab-content">
       <article role="tabpanel" class="tab-pane active" id="sql-windows">
         <p>
-          The <a href="https://www.sqlite.org/download.html">
-            {% if page.carpentry == "swc" %}
-            Software Carpentry
-            {% elsif page.carpentry == "dc" %}
-            Data Carpentry
-            {% elsif page.carpentry == "lc" %}
-            Library Carpentry
-            {% endif %}
-            Windows Installer
-	  </a>
-          installs SQLite for Windows.
-          If you used the installer to configure nano, you don't need to run it again.
+          Visit <a href="https://sqlitebrowser.org/dl/">SqliteBrowser</a> and download and install it. Version 3.11.0 or greater.
+        </p>
+      </article>
+      <article role="tabpanel" class="tab-pane active" id="sql-macos">
+        <p>
+          Visit <a href="https://sqlitebrowser.org/dl/">SqliteBrowser</a> and download and install it. Version 3.11.0 or greater.
+        </p>
+      </article>
+      <article role="tabpanel" class="tab-pane active" id="sql-linux">
+        <p>
+          Visit <a href="https://sqlitebrowser.org/dl/">SqliteBrowser</a> and download and install it. Version 3.11.0 or greater.
+        </p>
+      </article>
+      
+    </div>
+    {%else%}
+    <div class="tab-content">
+      <article role="tabpanel" class="tab-pane active" id="sql-windows">
+        <p>
+          <ul>
+            <li>Run git-bash from the start menu</li>
+            <li>Copy the following <code>curl {{site.url}}{{site.baseurl}}/getsql.sh | bash</code></li>
+            <li>Paste it into the window that git bash opened. If you're unsure, ask an instructor for help</li>
+            <li>You should see something like <code>3.27.2 2019-02-25 16:06:06 ...</code></li>
+          </ul>
+            
+          <p>If you want to do this manually, download <a href="https://www.sqlite.org/2019/sqlite-tools-win32-x86-3270200.zip">sqlite3</a>, make a bin directory in the user's home directory, unzip sqlite3, move it into the bin directory, and then add the bin directory to the path.</p>
+
         </p>
       </article>
       <article role="tabpanel" class="tab-pane active" id="sql-macos">
@@ -722,7 +763,18 @@ please preview your site before committing, and make sure to run
           SQLite comes pre-installed on Linux.
         </p>
       </article>
+      <article role="tabpanel" class="tab-pane active" id="sql-web">
+        <p>
+          <ul>
+            <li>In case of problems: register for an account at <a href="http://pythonanywhere.com/">Python Anywhere</a></li>
+            <li>Download <a href="http://swcarpentry.github.io/sql-novice-survey/files/survey.db">survey.db</a></li>
+            <li>Click on files and upload survey.db</li>
+            <li>Click on dashboard and Choose new console <code>$ bash</code></li>
+            </ul>
+        </p>
+      </article>
     </div>
+      {%endif%}
   </div>
 
   <p><strong>If you installed Anaconda, it also has a copy of SQLite
@@ -777,7 +829,7 @@ please preview your site before committing, and make sure to run
         <p>Go to your newly created OpenRefine directory.</p>
         <p>Launch OpenRefine by entering <code>./refine</code> into the terminal within the OpenRefine directory.</p>
         <p>If you are using a different browser, or if OpenRefine does not automatically open for you, point your browser at <a href="http://127.0.0.1:3333/">http://127.0.0.1:3333/</a> or <a href="http://localhost:3333">http://localhost:3333</a> to use the program.</p>
-        <article>
+      </article>
     </div>
   </div>
 </div> {% comment %} End of 'OpenRefine' section. {% endcomment %}
