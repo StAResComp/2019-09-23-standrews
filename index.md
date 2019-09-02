@@ -69,6 +69,7 @@ displayed if the 'eventbrite' field in the header is not set.
 </iframe>
 {% endif %}
 
+Registration is via the University of St Andrews [Personal Development Management Service (PDMS)](https://www.st-andrews.ac.uk/pdms/index.php?Mode=Search&AudienceID=5&CourseID=9781).
 
 <h2 id="general">General Information</h2>
 
