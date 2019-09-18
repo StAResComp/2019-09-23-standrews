@@ -143,6 +143,16 @@ Modify the block below if there are any special requirements.
   Mac, Linux, or Windows operating system (not a tablet, Chromebook, etc.) that they have administrative privileges on. They should have a few specific software packages installed (listed <a href="#setup">below</a>).
 </p>
 
+<p id="drop-ins">
+  <strong>Pre-workshop drop-in sessions:</strong>
+  If you have any questions or encounter any difficulties downloading the
+  software that needs to be installed prior to the workshop, please come
+  along to the drop-in session: 
+  <ul>
+    <li>Friday 20 September, 14:00 -16:00, North Haugh, School of Computer Science (Jack Cole Building), room 0.11 - Alexander Konovalov</li>
+</ul>
+</p>
+
 {% comment%}
 CODE OF CONDUCT
 {% endcomment %}
